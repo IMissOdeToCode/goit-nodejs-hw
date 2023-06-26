@@ -1,6 +1,6 @@
 const { Contact } = require("../../models/contacts_mongoose");
 
-const HttpError = require("../../helpers/HttpError");
+const { HttpError } = require("../../helpers");
 
 const getContactById = async (req, res, next) => {
   const { contactId } = req.params;

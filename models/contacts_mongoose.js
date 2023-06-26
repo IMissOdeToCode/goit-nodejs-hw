@@ -1,10 +1,9 @@
 const { Schema, model } = require("mongoose");
-
 const Joi = require("joi");
 
 const { handleMongooseError } = require("../utils");
 
-const phoneRegExp = /^\(\d{3}\)\s\d{3}-\d{4}$/;
+const phoneRegex = /^\(\d{3}\)\s\d{3}-\d{4}$/;
 
 const contactSchema = new Schema(
   {
@@ -18,7 +17,7 @@ const contactSchema = new Schema(
     },
     phone: {
       type: String,
-      match: phoneRegExp,
+      match: phoneRegex,
       required: true,
     },
     favorite: {
@@ -40,7 +39,7 @@ const addSchema = Joi.object({
     "any.required": `"email" is required"`,
     "string.empty": `"email" cannot be empty`,
   }),
-  phone: Joi.string().required().pattern(phoneRegExp).messages({
+  phone: Joi.string().required().pattern(phoneRegex).messages({
     "any.required": `"phone" is required"`,
     "string.empty": `"phone" cannot be empty`,
   }),
@@ -55,6 +54,7 @@ const updateFavoriteSchema = Joi.object({
 
 const schemas = { addSchema, updateFavoriteSchema };
 
+// create mongoose model
 const Contact = model("contact", contactSchema);
 
 module.exports = { Contact, schemas };
