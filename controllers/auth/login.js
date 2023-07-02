@@ -9,6 +9,7 @@ const { HttpError } = require("../../helpers");
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+  const { subscription } = user;
   if (!user) {
     throw HttpError(401, "Email or password invalid");
   }
@@ -22,7 +23,10 @@ const login = async (req, res) => {
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "365d" });
   await User.findByIdAndUpdate(user._id, { token });
-  res.json({ token });
+  res.json({
+    token,
+    user: { email, subscription },
+  });
 };
 
 module.exports = login;

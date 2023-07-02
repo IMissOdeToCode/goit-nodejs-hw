@@ -12,11 +12,12 @@ const { authContrrollers: ctrl } = require("../../controllers");
 
 // signup
 // register
+// router.post("/register", ctrl.register);
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 
 // signin
+// router.post("/login", ctrl.login);
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
-// router.post("/register", ctrl.register);
 
 router.get("/current", authenticate, ctrl.getCurrent);
 
