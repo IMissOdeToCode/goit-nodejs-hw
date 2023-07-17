@@ -12,7 +12,7 @@ const { isValidId, authenticate } = require("../../middlewares");
 
 router.get("/", authenticate, ctrl.getAllContacts);
 
-router.get("/:contactId", authenticate, isValidId, ctrl.getContactById);
+router.get("/:id", authenticate, isValidId, ctrl.getContactById);
 
 router.post(
   "/",
@@ -22,7 +22,7 @@ router.post(
 );
 
 router.put(
-  "/:contactId",
+  "/:id",
   authenticate,
   isValidId,
   validateBody(schemas.addSchema),
@@ -30,13 +30,13 @@ router.put(
 );
 
 router.patch(
-  "/:contactId/favorite",
+  "/:id/favorite",
   authenticate,
   isValidId,
   validateBody(schemas.updateFavoriteSchema),
   ctrl.updateStatusContact
 );
 
-router.delete("/:contactId", isValidId, ctrl.removeContact);
+router.delete("/:id", isValidId, ctrl.removeContact);
 
 module.exports = router;

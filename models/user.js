@@ -46,7 +46,14 @@ const loginSchema = Joi.object({
   password: Joi.string().min(minPasswordLength).required(),
 });
 
-const schemas = { registerSchema, loginSchema };
+const updateSubType = Joi.object({
+  subscription: Joi.string()
+    .required()
+    .valid("starter", "pro", "business")
+    .messages({ "any required": "missing field subscription" }),
+});
+
+const schemas = { registerSchema, loginSchema, updateSubType };
 
 // create mongoose model
 const User = model("user", userSchema);
